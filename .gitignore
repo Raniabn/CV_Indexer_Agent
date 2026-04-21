@@ -1,0 +1,16 @@
+# 1. Base de données ChromaDB
+my_database_final/
+
+# 2. Dossiers techniques de Python (Cache)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 3. Environnement Virtuel
+venv/
+.venv/
+env/
+
+# 4. Dossiers de configuration de l'IDE (PyCharm/VSCode)
+.idea/
+.vscode/

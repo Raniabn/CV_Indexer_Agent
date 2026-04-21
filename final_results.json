@@ -1,0 +1,136 @@
+[
+    {
+        "nom_complet": "Meriem AHLAN",
+        "email": "Meriem.Ahlan23@gmail.com",
+        "hard_skills": [
+            "Python",
+            "SQL",
+            "Java",
+            "Apache Spark",
+            "Hadoop",
+            "Kafka",
+            "Airflow",
+            "Power BI",
+            "Git",
+            "Docker",
+            "AWS",
+            "Linux",
+            "APIs REST",
+            "UML",
+            "Postman",
+            "Jira",
+            "PostgreSQL",
+            "Oracle",
+            "Cassandra",
+            "MongoDB",
+            "MySQL",
+            "Django",
+            "Flask",
+            "FastAPI",
+            "Spring Boot"
+        ],
+        "soft_skills": [
+            "Autonomie",
+            "Esprit d'équipe",
+            "Motivation",
+            "Adaptabilité",
+            "Communication"
+        ],
+        "experience_principale": "Ingénieur en DévOPS"
+    },
+    {
+        "nom_complet": "Benjamin Leroy",
+        "email": "hello@reallygreatsite.com",
+        "hard_skills": [
+            "Conception et modélisation de véhicules spatiaux",
+            "Analyse des performances aérodynamiques",
+            "Simulation numérique et calcul haute performance",
+            "Gestion de projet et management d'équipe"
+        ],
+        "soft_skills": [
+            "Gestion de projet",
+            "Management d'équipe",
+            "Travail en collaboration",
+            "Communication internationale"
+        ],
+        "experience_principale": [
+            {
+                "titre": "INGÉNIEUR AÉROSPATIAL",
+                "entreprise": "CONCORDIA",
+                "dates": "2023 - Aujourd’hui",
+                "description": "Conception et développement de sous-systèmes pour les satellites de télécommunication"
+            },
+            {
+                "titre": "INGÉNIEUR DE RECHERCHE EN AÉROSPATIAL",
+                "entreprise": "MESSAGEM",
+                "dates": "2021 - 2023",
+                "description": "Participation à des projets de recherche sur les véhicules hypersoniques et les technologies de propulsion avancées"
+            },
+            {
+                "titre": "STAGIAIRE EN INGÉNIERIE AÉROSPATIALE",
+                "entreprise": "NOMADE",
+                "dates": "Juillet - décembre 2020",
+                "description": "Assister les ingénieurs dans l'analyse de données des missions spatiales"
+            }
+        ]
+    },
+    {
+        "nom_complet": "Olivia Wilson",
+        "email": "hello@reallygreatsite.com",
+        "hard_skills": [
+            "Création de stratégies de communication",
+            "Gestion des relations publiques",
+            "Marketing digital",
+            "Rédaction et production de contenu",
+            "Analyse de données et mesure de performance"
+        ],
+        "soft_skills": [
+            "Créativité",
+            "Capacité d'adaptation",
+            "Excellentes compétences relationnelles",
+            "Esprit d'équipe",
+            "Orientation résultats"
+        ],
+        "experience_principale": "Chargée de Communication chez Communication Excellence"
+    },
+    {
+        "nom_complet": "Sacha Dubois",
+        "email": "hello@reallygreatsite.com",
+        "hard_skills": [
+            "Logiciels de gestion de projet",
+            "Gestion de budget",
+            "Anglais",
+            "Allemand"
+        ],
+        "soft_skills": [
+            "Gestion du temps",
+            "Capacités d’organisation",
+            "Communication",
+            "Leadership"
+        ],
+        "experience_principale": "Chargée de Projet"
+    },
+    {
+        "nom_complet": "Kristen Connelly",
+        "email": "email@email.com",
+        "hard_skills": [
+            "Adobe Premiere Pro",
+            "Avid non-linear editing system",
+            "DaVinci Resolve",
+            "Camera Boom",
+            "Light Boom",
+            "Mic Boom",
+            "Audio editing",
+            "Video editing"
+        ],
+        "soft_skills": [
+            "Storytelling",
+            "Team management",
+            "Communication",
+            "Problem-solving",
+            "Time management",
+            "Organization"
+        ],
+        "experience_principale": "Video Production Assistant"
+    }
+]
