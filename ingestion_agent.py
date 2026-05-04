@@ -1,69 +1,117 @@
-import json
-import os
-import chromadb
+import json, os, chromadb, shutil
+
 from sentence_transformers import SentenceTransformer
 
 
-def run_ingestion_agent():
-    print("🚀 [AGENT INGESTION] : Initialisation du Pipeline...")
 
-    # 1. Configuration de la base de données vectorielle (ChromaDB)
-    # On définit le chemin où la base sera stockée physiquement
-    db_path = "./my_database_final"
-    client = chromadb.PersistentClient(path=db_path)
 
-    # On supprime l'ancienne collection pour garantir la cohérence des données (Clean Start)
-    try:
-        client.delete_collection(name="cv_collection")
-        print("🗑️ Ancienne collection supprimée.")
-    except:
-        print("✨ Création d'une nouvelle collection.")
 
-    # Création de la collection avec la métrique 'cosine' pour la précision du matching
-    collection = client.create_collection(
-        name="cv_collection",
-        metadata={"hnsw:space": "cosine"}
-    )
+class IndexeurRecrutement:
 
-    # 2. Chargement du modèle de Langage (S-BERT)
-    # Ce modèle transforme le texte en vecteurs numériques de 384 dimensions
-    print("⏳ Chargement du modèle Sentence-BERT (all-MiniLM-L6-v2)...")
-    model = SentenceTransformer('all-MiniLM-L6-v2')
+    def __init__(self):
 
-    # 3. Chargement des données parsées (JSON)
-    # C'est ici qu'on récupère le travail fait par l'agent de parsing
-    json_input = 'final_results.json'
-    if not os.path.exists(json_input):
-        print(f"❌ Erreur : Le fichier {json_input} est introuvable.")
-        return
+        self.base_dir = r"C:\Users\dell\Desktop\PFE_AI_Matching_Project\Shared_Data"
 
-    with open(json_input, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+        self.json_path = os.path.join(self.base_dir, "final_results.json")
 
-    # 4. Vectorisation et Indexation
-    print(f"📊 Traitement de {len(data)} profils en cours...")
+        self.db_path = os.path.join(self.base_dir, "my_database_final")
 
-    for i, item in enumerate(data):
-        nom = item.get('nom', f"Candidat_{i}")
 
-        # Concaténation des informations clés pour enrichir le vecteur
-        # On regroupe Spécialité, Compétences et Expérience
-        full_content = f"{item.get('specialite', '')} {item.get('competences', '')} {item.get('experience', '')}"
 
-        # Transformation du texte en vecteur numérique
-        vector = model.encode(full_content).tolist()
+        # Suppression de l'ancienne base pour appliquer la nouvelle métrique
 
-        # Ajout à la base vectorielle avec les métadonnées
-        collection.add(
-            ids=[f"id_{i}"],
-            embeddings=[vector],
-            metadatas=[{"nom": nom}],
-            documents=[full_content]  # Indispensable pour la recherche sémantique
+        if os.path.exists(self.db_path):
+
+            shutil.rmtree(self.db_path)
+
+            print("🗑️ Ancienne base supprimée pour mise à jour du moteur de calcul.")
+
+
+
+        self.client = chromadb.PersistentClient(path=self.db_path)
+
+
+
+        # CRITIQUE : Utilisation de 'cosine' pour éviter les scores à 0%
+
+        self.collection = self.client.create_collection(
+
+            name="cv_collection",
+
+            metadata={"hnsw:space": "cosine"}
+
         )
-        print(f"✅ Profil indexé avec succès : {nom}")
 
-    print("\n✨ OPÉRATION TERMINEE : La base vectorielle est prête pour le matching.")
+        self.model = SentenceTransformer('all-MiniLM-L6-v2')
+
+
+
+    def indexer_donnees(self):
+
+        with open(self.json_path, 'r', encoding='utf-8') as f:
+
+            data = json.load(f)
+
+
+
+        print(f"📊 Indexation de {len(data)} profils...")
+
+
+
+        for i, item in enumerate(data):
+
+            # On fusionne toutes les données pour un matching puissant
+
+            contenu_complet = f"{item.get('nom_complet')} {item.get('experience_principale')} "
+
+            contenu_complet += " ".join(item.get('hard_skills', [])) + " "
+
+            contenu_complet += " ".join(item.get('soft_skills', []))
+
+
+
+            # Extraction propre des métadatas
+
+            nom = str(item.get('nom_complet', f"Cand_{i}"))
+
+            spec = item.get('experience_principale', "Ingénieur")
+
+
+
+            # Si la spécialité est une liste, on la simplifie
+
+            if isinstance(spec, list):
+
+                spec = "Ingénieur Spécialisé"
+
+
+
+            vecteur = self.model.encode(contenu_complet).tolist()
+
+
+
+            self.collection.add(
+
+                ids=[f"id_{i}"],
+
+                embeddings=[vecteur],
+
+                metadatas={"nom": nom, "specialite": str(spec)},
+
+                documents=[contenu_complet]
+
+            )
+
+            print(f"✅ Indexé : {nom}")
+
+
+
 
 
 if __name__ == "__main__":
-    run_ingestion_agent()
+
+    indexeur = IndexeurRecrutement()
+
+    indexeur.indexer_donnees()
+
+    print("✨ Ingestion terminée avec succès (Mode Cosine).")
